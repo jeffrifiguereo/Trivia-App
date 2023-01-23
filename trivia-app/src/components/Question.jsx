@@ -10,7 +10,9 @@ const Question = ({ question, options, handleAnswerSelection, selectedAnswer }) 
 
   return (
     <div className="question-container">
-      <h3 className="question-text">{question.question}</h3>
+      <h3 className="question-text" 
+      dangerouslySetInnerHTML={{__html: question.question}}
+      ></h3>
       <div className="options-container">
         {options.map((option, index) => (
           <button
