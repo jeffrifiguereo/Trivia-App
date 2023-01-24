@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+const decodeHTML = (html) => {
+  const txt = document.createElement('textarea');
+  txt.innerHTML = html;
+  return txt.value;
+}
+
 const Question = ({ question, options, handleAnswerSelection, selectedAnswer }) => {
   const [answerSelected, setAnswerSelected] = useState(false);
 
@@ -10,17 +16,15 @@ const Question = ({ question, options, handleAnswerSelection, selectedAnswer }) 
 
   return (
     <div className="question-container">
-      <h3 className="question-text" 
-      dangerouslySetInnerHTML={{__html: question.question}}
-      ></h3>
+      <h3 className="question-text">{decodeHTML(question.question)}</h3>
       <div className="options-container">
         {options.map((option, index) => (
           <button
             key={index}
             className={`option ${answerSelected && option === selectedAnswer ? 'selected' : ''}`}
-            onClick={() => handleOptionClick(option)}
+            onClick={() => handleOptionClick(decodeHTML(option))}
           >
-            {option}
+            {decodeHTML(option)}
           </button>
         ))}
       </div>
